@@ -1,38 +1,38 @@
-from fastapi import FastAPI
+import logging
+
 import uvicorn
+from fastapi import FastAPI
 from mujtaba_charm.utils.sample import hello
-import logging 
 
 app = FastAPI()
 
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="[%(asctime)s] %(levelname)s in %(module)s: %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
 @app.get("/hello")
-async def get_hello():
+@app.get("/hello/{name}")
+async def get_hello(name: str = None):
     """
     Prints a greeting message.
+
+    If a name parameter is provided, it greets that name; otherwise, it greets the world.
+
+    Args:
+        name (str, optional): The name to greet. Defaults to None.
 
     Returns:
         dict: A dictionary containing a greeting message.
     """
-    logger.info("Handling /hello request")
-    message = hello()
-    logger.info(f"Returning message: {message}")
-    return {"message": message}
+    if name:
+        logger.info(f"Handling /hello/{name} request")
+        message = hello(name)
+    else:
+        logger.info("Handling /hello request")
+        message = hello()
 
-@app.get("/hello/{name}")
-async def get_hello(name):
-    """
-    Prints a string greeting the name entered as parameter. If no name
-    provided, it greets the world.
-
-    Returns:
-        dict: A dictionary containing a greeting message along with the name entered by the user.
-    """
-    logger.info(f"Handling /hello/{name} request")
-    message = hello(name)
     logger.info(f"Returning message: {message}")
     return {"message": message}
 
@@ -45,5 +45,6 @@ async def health_check():
     logger.info("Handling /health request")
     return {"status": "ok"}
 
-if __name__=="__main__":
-    uvicorn.run(app,host="0.0.0.0",port=8000)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

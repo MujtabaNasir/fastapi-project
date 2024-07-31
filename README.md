@@ -41,6 +41,12 @@ pip install -r requirements.txt
 pip install git+https://github.com/MujtabaNasir/mujtaba-charm.git
 ```
 
+7. To run black and isort:
+```bash
+black .
+isort .
+```
+
 7.Run FastAPI application
 ```bash
 uvicorn main:app --reload
