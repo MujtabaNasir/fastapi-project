@@ -27,13 +27,13 @@ python -m venv fastapi_env
 
 4. To deactivate go into the folder where .bat files exists:
 ```bash
-cd .\fastapi_env\Scripts\
-run command: deactivate
+cd ./fastapi_env/Scripts/
+deactivate
 ```
 
 5. Install necessary dependancies
 ```bash
-pip install fastapi uvicorn
+pip install -r requirements.txt
 ```
 
 6. Install mujtaba-charm package:
@@ -44,5 +44,9 @@ pip install git+https://github.com/MujtabaNasir/mujtaba-charm.git
 7.Run FastAPI application
 ```bash
 uvicorn main:app --reload
+```
+or
+```bash
+python main.py
 ```
 
