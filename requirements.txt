@@ -1,0 +1,3 @@
+git+https://github.com/MujtabaNasir/mujtaba-charm.git
+fastapi==0.111.1
+uvicorn==0.30.3
